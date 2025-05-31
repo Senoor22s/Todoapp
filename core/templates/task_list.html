@@ -1,15 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2>Task List</h2>
-  <a href="{% url 'task-create' %}">Create New Task</a>
-  <ul>
+  <h2 style="color: #2c3e50; margin-bottom: 20px;">Task List</h2>
+  <a href="{% url 'blog:task-create' %}" 
+     style="display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #3498db; color: white; border-radius: 6px; text-decoration: none; font-weight: 600;">
+    + Create New Task
+  </a>
+  <ul style="list-style: none; padding: 0;">
     {% for task in tasks %}
-      <li>
-        {{ task.title }} - {% if task.is_done %}✅{% else %}❌{% endif %}
-        <a href="{% url 'task-update' task.pk %}">Edit</a>
-        <a href="{% url 'task-delete' task.pk %}">Delete</a>
-        <a href="{% url 'task-done-toggle' task.pk %}">Toggle Done</a>
+      <li style="background: #f9fafb; padding: 15px 20px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: space-between;">
+        <span style="{% if task.is_done %}text-decoration: line-through; color: gray;{% else %}color: #333;{% endif %}">
+          {{ task.title }}
+          {% if task.is_done %}
+            <span style="margin-left: 8px;">✅</span>
+          {% else %}
+            <span style="margin-left: 8px;">❌</span>
+          {% endif %}
+        </span>
+        <span>
+          <a href="{% url 'blog:task-update' task.pk %}" style="margin-right: 10px; color: #3498db; text-decoration: none;">Edit</a>
+          <a href="{% url 'blog:task-delete' task.pk %}" style="margin-right: 10px; color: #e74c3c; text-decoration: none;">Delete</a>
+          <a href="{% url 'blog:task-done-toggle' task.pk %}" style="color: #27ae60; text-decoration: none;">Toggle Done</a>
+        </span>
       </li>
+    {% empty %}
+      <li style="color: #777;">No tasks available. Create one now!</li>
     {% endfor %}
   </ul>
 {% endblock %}

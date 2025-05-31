@@ -1,17 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ToDo App</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: #f9fafb;
+            color: #333;
+        }
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        nav span {
+            font-weight: 600;
+            color: #2c3e50;
         }
         nav a {
-            margin-right: 10px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #2980b9;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin-bottom: 30px;
         }
         .task-done {
             text-decoration: line-through;
@@ -22,14 +50,15 @@
 <body>
     <nav>
         {% if user.is_authenticated %}
-            <span>Hello, {{ user.username }}!</span>
+            <span>Hello, {{ user.get_username }}</span>
             <a href="{% url 'logout' %}">Logout</a>
         {% else %}
             <a href="{% url 'login' %}">Login</a>
         {% endif %}
     </nav>
-    <hr>
-    
+
+    <hr />
+
     {% block content %}
     {% endblock %}
 </body>

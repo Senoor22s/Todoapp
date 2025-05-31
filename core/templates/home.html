@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome to Todo App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .welcome-msg {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    .btn-group a {
+      display: inline-block;
+      text-decoration: none;
+      background: #3498db;
+      color: white;
+      padding: 12px 24px;
+      margin: 0 10px;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .btn-group a:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to our Todo App</h1>
+
+  {% if user.is_authenticated %}
+    <p class="welcome-msg">Hello, {{ user.get_username }}!</p>
+    <div class="btn-group">
+      <a href="{% url 'blog:task-list' %}">My Tasks</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  {% else %}
+    <div class="btn-group">
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
+  {% endif %}
+
+</body>
+</html>
