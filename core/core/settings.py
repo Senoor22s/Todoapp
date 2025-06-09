@@ -155,3 +155,8 @@ EMAIL_HOST='smtp4dev'
 EMAIL_HOST_USER=''
 EMAIL_HOST_PASSWORD=''
 EMAIL_PORT=25
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}

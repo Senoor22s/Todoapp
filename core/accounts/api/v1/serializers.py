@@ -5,6 +5,9 @@ from django.core import exceptions
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password1=serializers.CharField(max_length=255,write_only=True)
@@ -23,8 +26,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
     
     def create(self, validated_data):
-        validated_data.pop('password1',None)
-        return super().create(validated_data)
+        validated_data.pop('password1', None)
+        password = validated_data.pop('password')
+        user = User(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
+
 
 class CustomAuthTokenSerializer(serializers.Serializer):
     email=serializers.CharField(label=_('Email'),write_only=True)
@@ -89,11 +97,6 @@ class ActivationResendSerializer(serializers.Serializer):
             raise serializers.ValidationError({'detail':'user already is verified'})
         attrs['user']=user_obj
         return super().validate(attrs)
-
-from rest_framework import serializers
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
 
 class ResetPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
