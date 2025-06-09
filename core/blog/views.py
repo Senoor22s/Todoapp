@@ -4,13 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.core.exceptions import PermissionDenied
 from .models import Task
 from .forms import TaskForm
-from .forms import CustomUserCreationForm
 from django.views.generic import CreateView
-
-class SignUpView(CreateView):
-    form_class = CustomUserCreationForm
-    success_url = '/accounts/login/'
-    template_name = 'registration/signup.html'
 
 def index_view(request):
     return render(request, 'home.html')
