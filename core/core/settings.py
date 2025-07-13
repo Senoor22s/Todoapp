@@ -159,3 +159,11 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+CELERY_BROKER_URL='redis://redis:6379/1'
+CELERY_BEAT_SCHEDULE = {
+    'delete-done-tasks-every-10-minutes': {
+        'task': 'blog.tasks.delete_done_tasks',
+        'schedule': 60,
+    },
+}
