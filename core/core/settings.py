@@ -164,6 +164,6 @@ CELERY_BROKER_URL='redis://redis:6379/1'
 CELERY_BEAT_SCHEDULE = {
     'delete-done-tasks-every-10-minutes': {
         'task': 'blog.tasks.delete_done_tasks',
-        'schedule': 60,
+        'schedule': 600,
     },
 }
